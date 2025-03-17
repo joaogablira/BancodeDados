@@ -19,7 +19,6 @@ CREATE TABLE departamento (
     id_departamento int PRIMARY KEY,
     nome varchar(255)
 );
- 
 ALTER TABLE funcionario ADD CONSTRAINT FK_funcionario_2
     FOREIGN KEY (fk_departamento_id_departamento)
     REFERENCES departamento (id_departamento)
