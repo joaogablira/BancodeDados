@@ -1,0 +1,74 @@
+CREATE TABLE cliente (
+id_cliente INT PRIMARY KEY,
+rg VARCHAR(20),
+nome_cliente VARCHAR(255),
+dataNasc DATE,
+cpf Texto(1),
+ativo BIT(1),
+id_endereco INT
+)
+
+CREATE TABLE endereco (
+id_endereco INT PRIMARY KEY,
+numero VARCHAR(255),
+estado VARCHAR(2),
+rua VARCHAR(255),
+cidade VARCHAR(255),
+bairro VARCHAR(255),
+cep VARCHAR(10),
+complemento VARCHAR(255)
+)
+
+CREATE TABLE telefone (
+id_telefone INT PRIMARY KEY,
+numero VARCHAR(20)
+)
+
+CREATE TABLE item_venda (
+id_venda INT PRIMARY KEY,
+quantidade INT,
+id_livro INT,
+-- Erro: nome do campo duplicado nesta tabela!
+id_venda INT
+)
+
+CREATE TABLE livro (
+id_livro INT PRIMARY KEY,
+dataPublicacao DATE,
+nome_livro VARCHAR(255),
+estoque INT,
+genero TEXT,
+sinopse TEXT,
+preco_livro decimal(5,2)
+)
+
+CREATE TABLE venda (
+id_venda INT PRIMARY KEY,
+data_venda DATE,
+valor_total INT,
+id_cliente INT,
+FOREIGN KEY(id_cliente) REFERENCES cliente (id_cliente)
+)
+
+CREATE TABLE autor (
+id_autor INT PRIMARY KEY,
+nome VARCHAR(255)
+)
+
+CREATE TABLE possui (
+id_telefone INT,
+id_cliente INT,
+FOREIGN KEY(id_telefone) REFERENCES telefone (id_telefone),
+FOREIGN KEY(id_cliente) REFERENCES cliente (id_cliente)
+)
+
+CREATE TABLE escreve (
+id_autor INT,
+id_livro INT,
+FOREIGN KEY(id_autor) REFERENCES autor (id_autor),
+FOREIGN KEY(id_livro) REFERENCES livro (id_livro)
+)
+
+ALTER TABLE cliente ADD FOREIGN KEY(id_endereco) REFERENCES endereco (id_endereco)
+ALTER TABLE item_venda ADD FOREIGN KEY(id_livro) REFERENCES livro (id_livro)
+ALTER TABLE item_venda ADD FOREIGN KEY(id_venda) REFERENCES venda (id_venda)

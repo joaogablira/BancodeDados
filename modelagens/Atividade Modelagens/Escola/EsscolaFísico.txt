@@ -1,0 +1,67 @@
+CREATE TABLE professor (
+id_professor INT PRIMARY KEY,
+nome_prof VARCHAR(255),
+dataNasc_prof DATE,
+rg_prof VARHCAR(20),
+cpf_prof VARCHAR(20),
+telefone_prof VARCHAR(20),
+email_prof VARCHAR(255),
+contrato VARCHAR(255),
+salario decimal(4,2),
+expediente TIME,
+especialidade VARCHAR(100)
+)
+
+CREATE TABLE disciplina (
+id_discplina INT PRIMARY KEY,
+nome VARCHAR(255),
+basestec LONGTEXT,
+materiais TEXT,
+descricao TEXT
+)
+
+CREATE TABLE curso (
+id_curso INT PRIMARY KEY,
+nome_curso VARCHAR(255),
+duracao DATE,
+vagas INT,
+id_turma INT
+)
+
+CREATE TABLE turma (
+id_turma INT PRIMARY KEY,
+nome_turma VARCHAR(255),
+horario VARCHAR(255),
+vagas_turma INT,
+ano_turma DATE
+)
+
+CREATE TABLE aluno (
+id_aluno INT PRIMARY KEY,
+faltas INT,
+nome_aluno VARCHAR(255),
+notas VARCHAR(255),
+telefone_aluno VARCHAR(20),
+email_aluno Texto(1),
+cpf_aluno VARCHAR(20),
+rg_aluno VARCHAR(20),
+dataNasc_aluno DATE,
+id_turma INT,
+FOREIGN KEY(id_turma) REFERENCES turma (id_turma)
+)
+
+CREATE TABLE ministra (
+id_professor INT,
+id_discplina INT,
+FOREIGN KEY(id_professor) REFERENCES professor (id_professor),
+FOREIGN KEY(id_discplina) REFERENCES disciplina (id_discplina)
+)
+
+CREATE TABLE possui (
+id_curso INT,
+id_discplina INT,
+FOREIGN KEY(id_curso) REFERENCES curso (id_curso),
+FOREIGN KEY(id_discplina) REFERENCES disciplina (id_discplina)
+)
+
+ALTER TABLE curso ADD FOREIGN KEY(id_turma) REFERENCES turma (id_turma)

@@ -1,0 +1,72 @@
+CREATE TABLE proprietario (
+cod_pro INT PRIMARY KEY,
+nome VARCHAR(255),
+email VARCHAR(255),
+telefone VARCHAR(20),
+cpf VARCHAR(20),
+dataCadastro DATE,
+rg VARCHAR(20),
+qtdeImoveis INT,
+cod_corr INT
+)
+
+CREATE TABLE corretor (
+dataContrato DATE,
+cpf VARCHAR(20),
+escala VARCHAR(255),
+rg VARCHAR(20),
+horastrabalhadas Texto(1),
+telefone VARCHAR(20),
+cod_corr INT PRIMARY KEY,
+dataNasc DATE,
+email VARCHAR(255),
+cod_endereco INT
+)
+
+CREATE TABLE imovel (
+qtd_quartos INT,
+qtde_andares INT,
+qtde_Imoveis INT,
+cod_imovel INT PRIMARY KEY,
+preco DECIMAL(10,2),
+num_vagas INT,
+cod_pro INT,
+cod_endereco INT,
+FOREIGN KEY(cod_pro) REFERENCES proprietario (cod_pro)
+)
+
+CREATE TABLE inquilino (
+cod_inquilino Texto(1) PRIMARY KEY,
+dataVencimento DATE,
+nome VARCHAR(255),
+dataNasc DATE,
+rg VARCHAR(20),
+aluguel DECIMAL(10,2),
+cpf VARCHAR(20),
+email VARCHAR(255),
+telefone VARCHAR(20),
+cod_corr INT,
+FOREIGN KEY(cod_corr) REFERENCES corretor (cod_corr)
+)
+
+CREATE TABLE endereco (
+cod_endereco INT PRIMARY KEY,
+complemento VARCHAR(255),
+estado VARCHAR(2),
+cidade VARCHAR(255),
+cep VARCHAR(20),
+numero VARCHAR(50),
+rua VARCHAR(255),
+bairro VARCHAR(255)
+)
+
+CREATE TABLE aluga (
+cod_inquilino Texto(1),
+cod_imovel INT,
+FOREIGN KEY(cod_inquilino) REFERENCES inquilino (cod_inquilino),
+FOREIGN KEY(cod_imovel) REFERENCES imovel (cod_imovel)
+)
+
+ALTER TABLE proprietario ADD FOREIGN KEY(cod_corr) REFERENCES corretor (cod_corr)
+ALTER TABLE corretor ADD FOREIGN KEY(cod_endereco) REFERENCES endereco (cod_endereco)
+ALTER TABLE imovel ADD FOREIGN KEY(cod_endereco) REFERENCES endereco (cod_endereco)
