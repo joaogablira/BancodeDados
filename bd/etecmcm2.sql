@@ -67,47 +67,73 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id_produto`, `nome`, `preco`, `quant`, `marca`, `id_categoria`, `unidade_medida`) VALUES
+(1, 'Sabão em barra', 2.50, 50, 'Ypê', 1, 'uni'),
+(2, 'Água sanitária', 3.00, 40, 'Candura', 1, '1L'),
+(3, 'Queijo mussarela', 9.00, 30, 'Itambé', 2, '300g'),
+(4, 'Óculos de leitura', 120.00, 10, 'Genérico', 3, 'uni'),
+(5, 'Carne moída', 20.00, 20, 'Friboi', 4, '500g'),
+(6, 'Milho verde enlatado', 4.00, 25, 'Quero', 5, '200g'),
+(7, 'Fone de ouvido', 50.00, 15, 'Multilaser', 6, 'uni'),
+(8, 'Desodorante aerosol', 12.00, 35, 'Rexona', 7, '150ml'),
+(9, 'Refrigerante cola', 5.00, 60, 'Coca-Cola', 8, '2L'),
+(10, 'Banana prata', 6.00, 45, 'Genérico', 9, '1kg'),
+(11, 'Pizza congelada', 15.00, 20, 'Sadia', 10, '400g'),
+(12, 'Presunto fatiado', 7.00, 30, 'Sadia', 2, '200g'),
+(13, 'Óculos escuros', 80.00, 5, 'Genérico', 3, 'uni'),
+(14, 'Frango congelado', 18.00, 12, 'Perdigão', 4, '1kg'),
+(15, 'Sardinha em lata', 3.50, 40, 'Gomes da Costa', 5, '125g'),
+(16, 'Carregador USB', 25.00, 18, 'Multilaser', 6, 'uni'),
+(17, 'Sabonete', 2.00, 100, 'Lux', 7, '90g'),
+(18, 'Suco de laranja', 6.00, 28, 'Del Valle', 8, '1L'),
+(19, 'Tomate', 7.00, 35, 'Genérico', 9, '1kg'),
+(20, 'Hambúrguer bovino', 14.00, 22, 'Seara', 10, '300g');
+
+--
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `categoria`
+-- Índices para tabela `categorias`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Índices de tabela `produtos`
+-- Índices para tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id_produto`),
-  ADD KEY `FK_produtos_2` (`fk_categoria_id_categoria`);
+  ADD KEY `id_categoria` (`id_categoria`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT de tabela `categoria`
+-- AUTO_INCREMENT de tabela `categorias`
 --
-ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `categorias`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `produtos`
+-- Limitadores para a tabela `produtos`
 --
 ALTER TABLE `produtos`
-  ADD CONSTRAINT `FK_produtos_2` FOREIGN KEY (`fk_categoria_id_categoria`) REFERENCES `categoria` (`id_categoria`);
+  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
