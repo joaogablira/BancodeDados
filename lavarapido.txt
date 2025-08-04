@@ -1,0 +1,51 @@
+-- marca
+ CREATE TABLE marca (
+     codmarca INT PRIMARY KEY AUTO_INCREMENT,
+     marca varchar(255) not null ); 
+     
+-- modelo
+ CREATE TABLE modelo (
+     modelo varchar(255) not null,
+     FOREIGN KEY (codmarca) REFERENCES marca(codmarca) );
+	
+-- endereco
+CREATE TABLE endereco (
+    codendereco INT PRIMARY KEY AUTO_INCREMENT,
+    rua varchar (255) not null,
+    num int (20) not null,
+    bairro varchar(255) not null,
+    cidade varchar(255) not null,
+    estado varchar(2) not null,
+    cep int (10) not null);
+    
+-- cliente
+CREATE TABLE cliente (
+    codcliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(255) not null,
+    datanasciento date not null,
+    telefone varchar(25) not null,
+    email varchar(255) not null,
+	FOREIGN KEY (codendereco) REFERENCES enderco(codendereco));
+-- carro
+CREATE TABLE carro (
+    codcarro INT PRIMARY KEY AUTO_INCREMENT,
+    ano int (4) not null,
+    FOREIGN KEY (codmarca) REFERENCES marca(codmarca),
+    FOREIGN KEY (codcliente) REFERENCES cliente(codcliente) );
+
+-- atendimento
+CREATE TABLE atendimento (
+    codos INT PRIMARY KEY AUTO_INCREMENT,
+    totalgeral varchar(255),
+	datas date,
+    FOREIGN KEY (codcarro) REFERENCES carro(codcarro) );
+-- servico
+CREATE TABLE servico (
+    codoservico INT PRIMARY KEY AUTO_INCREMENT,
+    servico varchar(255),
+	valor decimal(10.2) );
+
+-- atendimento_servico
+CREATE TABLE atendimento_servico (
+    qtde int,
+	valor decimal(10.2) );
