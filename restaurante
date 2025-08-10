@@ -1,0 +1,59 @@
+-- garcom
+
+CREATE TABLE garcom (
+    codgarcom INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL);
+
+-- arearestaurante
+
+CREATE TABLE arearestaurante (
+    codarea INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(100) NOT NULL);
+
+-- mesa
+
+CREATE TABLE mesa (
+    codmesa INT PRIMARY KEY AUTO_INCREMENT,
+    comporta INT NOT NULL,
+    codarea INT NOT NULL,
+    FOREIGN KEY (codarea) REFERENCES arearestaurante(codarea));
+
+-- atendimento
+
+CREATE TABLE atendimento (
+    codatendimento INT PRIMARY KEY AUTO_INCREMENT,
+    codgarcom INT NOT NULL,
+    codmesa INT NOT NULL,
+    horarioentrada DATETIME NOT NULL,
+    horariosaida DATETIME NOT NULL,
+    qtdpessoas INT NOT NULL,
+    FOREIGN KEY (codgarcom) REFERENCES garcon(codgarcom),
+    FOREIGN KEY (codmesa) REFERENCES mesa(codmesa));
+
+-- conta
+
+CREATE TABLE conta (
+    codconta INT PRIMARY KEY AUTO_INCREMENT,
+    data DATE NOT NULL,
+    valortotal DECIMAL(10,2) NOT NULL,
+    valorppessoa DECIMAL(10,2) NOT NULL,
+    codmesa INT NOT NULL,
+    FOREIGN KEY (codmesa) REFERENCES mesa(codmesa));
+
+-- item
+
+CREATE TABLE item (
+    coditem INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL);
+
+-- itensconta
+
+CREATE TABLE itensconta (
+    cod_itensconta INT PRIMARY KEY AUTO_INCREMENT,
+    codconta INT NOT NULL,
+    coditem INT NOT NULL,
+    qtde INT NOT NULL,
+    totalitem DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (codconta) REFERENCES conta(codconta),
+    FOREIGN KEY (coditem) REFERENCES item(coditem));
