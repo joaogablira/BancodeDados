@@ -1,0 +1,73 @@
+-- marca
+
+CREATE TABLE marca (
+    codmarca INT PRIMARY KEY AUTO_INCREMENT,
+    marca VARCHAR(50) NOT NULL); 
+
+-- modelo
+CREATE TABLE modelo (
+    codmodelo INT PRIMARY KEY AUTO_INCREMENT,
+    modelo VARCHAR(50) NOT NULL,
+    codmarca INT NOT NULL,
+    FOREIGN KEY (codmarca) REFERENCES marca(codmarca));
+
+-- endereco
+
+CREATE TABLE endereco (
+    codendereco INT PRIMARY KEY AUTO_INCREMENT,
+    rua VARCHAR(100) NOT NULL,
+    num VARCHAR(10) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    cep VARCHAR(10) NOT NULL);
+
+-- cliente
+
+CREATE TABLE cliente (
+    codcliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    datanascimento DATE NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    codendereco INT NOT NULL,
+    FOREIGN KEY (codendereco) REFERENCES endereco(codendereco));
+
+-- carro
+
+CREATE TABLE carro (
+    codcarro INT PRIMARY KEY AUTO_INCREMENT,
+    placa VARCHAR(10) NOT NULL,
+    ano INT NOT NULL,
+    codcliente INT NOT NULL,
+    codmodelo INT NOT NULL,
+    FOREIGN KEY (codcliente) REFERENCES cliente(codcliente),
+    FOREIGN KEY (codmodelo) REFERENCES modelo(codmodelo));
+
+-- atendimento
+
+CREATE TABLE atendimento (
+    codos INT PRIMARY KEY AUTO_INCREMENT,
+    codcarro INT NOT NULL,
+    totalgeral DECIMAL(10,2),
+    data DATE,
+    FOREIGN KEY (codcarro) REFERENCES carro(codcarro));
+
+-- servico
+
+CREATE TABLE servico (
+    codoservico INT PRIMARY KEY AUTO_INCREMENT,
+    servico VARCHAR(100) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL);
+
+-- atendimento_servico
+
+CREATE TABLE atendimento_servico (
+    cosdatendimentoservico INT PRIMARY KEY AUTO_INCREMENT,
+    codos INT NOT NULL,
+    codoservico INT NOT NULL,
+    qtde INT NOT NULL,
+    totalserv DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (codos) REFERENCES atendimento(codos),
+    FOREIGN KEY (codoservico) REFERENCES servico(codoservico));
+
